@@ -1,15 +1,20 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-
 import markdoc from '@astrojs/markdoc';
+
 
 // https://astro.build/config
 export default defineConfig({
-    integrations: [starlight({
+    integrations: [ starlight({
         title: 'Cubtera',
-        editLink: {
-            baseUrl: 'https://github.com/cubtera/cubtera.github.io/edit/main/',
-        },
+		tagline: 'The best way to build your next project',
+		customCss: [
+			// Relative path to your custom CSS file
+			'./src/styles/custom.css',
+		],
+        // editLink: {
+        //     baseUrl: 'https://github.com/cubtera/cubtera.github.io/edit/main/',
+        // },
         social: {
             github: 'https://github.com/cubtera/cubtera',
             slack: 'https://cubtera.slack.com',
@@ -19,15 +24,37 @@ export default defineConfig({
         // },
         sidebar: [
             {
-                label: 'Introduction',
+                label: '👋 Introduction',
                 items: [
-                    { label: 'About Cubtera', link: '/about' },
+                    { label: 'About Cubtera', slug: 'about' },
+                    { label: 'How it works', slug: 'how' },
+					{ label: 'Why Cubtera', slug: 'why' },
+					// { label: 'Roadmap', slug: 'roadmap' },
                 ],
             },
             {
-                label: 'Getting started',
+                label: '🚀 Getting started',
                 autogenerate: { directory: 'start' },
             },
+			{
+                label: '💻 Cubteral CLI',
+				collapsed: false,
+				items: [
+					'cubtera/config',
+					{ 
+						label: 'Dimensions',
+						autogenerate: { directory: '/cubtera/dimensions', collapsed: true } 
+					},
+					{ 
+						label: 'Runners', 
+						autogenerate: { directory: '/cubtera/runners', collapsed: true } 
+					},
+					{ 
+						label: 'Inventory',
+						autogenerate: { directory: '/cubtera/inventory', collapsed: true } 
+					},
+				],
+			},
             {
                 label: 'Guides',
                 items: [
@@ -41,5 +68,7 @@ export default defineConfig({
                 autogenerate: { directory: 'reference' },
             },
         ],
-		}), markdoc()],
+	}), 
+	markdoc()],
 });
+

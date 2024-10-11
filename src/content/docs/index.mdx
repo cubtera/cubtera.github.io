@@ -2,21 +2,45 @@
 title: Welcome to Cubtera
 description: Get started building your infrastructure with us.
 tableOfContents: false
+template: splash
+banner:
+  content: |
+    We just launched our cool documentation page!
+    <a href="/about">Check it out</a>
+hero:
+  tagline: Immersive experience of cube dimensions
+  image:
+   	file: ../../assets/cube.png
+  actions:
+    - text: Quick Start
+      link: /start/quick/
+      icon: right-arrow
+      variant: primary
+    - text: Read code in github
+      link: https://github.com/cubtera/cubtera
+      icon: external
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-<CardGrid stagger>
-	<Card title="About Cubtera" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+<CardGrid>
+	<Card title="About Cubtera" icon="pencil" href="/about">
+		 <LinkCard title="Breif info" href="/about" />
+		 <LinkCard title="How it works" href="/how" />
 	</Card>
 	<Card title="Getting Started" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
+		<LinkCard title="Installation" href="/start/install" />
+		<LinkCard title="Quick start" href="/start/quick" />
 	</Card>
 	<Card title="Cubtera CLI" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
+		<LinkCard title="Components" href="/reference/docs" />
 	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [Cubtera Github](https://).
+	<Card title="Reference" icon="open-book">
+		<LinkCard title="Documenting" href="/reference/docs" />
 	</Card>
+</CardGrid>
+
+<CardGrid>
+	<LinkCard title="Authoring Markdown" href="/guides/authoring-content/" />
+	<LinkCard title="Components" href="/components/using-components/" />
 </CardGrid>

@@ -1,0 +1,28 @@
+---
+title: Why Cubtera?
+description: Get started building your infrastructure with us.
+tableOfContents: true
+---
+
+&emsp; This page describes existing approaches to managing cloud infrastructure with Infrastructure as Code (IaC) and compares those with what we call the "next generation" Infrastructure as Code approach that we provide with Cubtera.
+
+## Different approaches to IaC
+&emsp; Adopting, managing, and automating IaC for complex infrastructures with many repetetive parts is a time-consuming, costly, and error-prone process. Especially if you wrapping whole infrastructure parts into one huge script.
+
+&emsp; Usually teams are using one of these approaches: 
+
+### DIY combine platform 
+
+&emsp; This approach describes teams that built a platform around one IaC tool such as Terraform, OpenTofu, Polumi or some self-created tool using cloud SDK. This approach often leads to a combination of dozens of tools that solve different problems in automation, collaboration, security, observability, etc. Following this approach requires dedicated platform team that glue all those tools into an often fragile platform that id difficult to scale and maintain.
+
+### Purpose-built CI/CD platform
+
+&emsp; This approach is often referred to as "TACOS"—Terraform Automation and Collaboration software. These purpose-built CI/CD platforms come with a heavy price tag, are time-consuming to onboard and manage, and usually require refactoring your existing IaC configurations into specific patterns. Using a dedicated CI/CD platform also requires you to grant these platforms broad access to your cloud accounts and state files that often contain sensitive information.
+
+## Dimensions and runners approach
+
+&emsp; We've designed Cubtera to provide an alternative and new approach to solve common challenges in IaC development, maintenance and management. Our philosophy is to integrate with all your existing tools and configurations in a non-intrusive way. And provide more convinient way to manage different infra parts with one tool and keep you code DRY.
+
+&emsp; The main value add of Cubtera is to add TACOS capabilities to your existing toolset with minimal effort and configurations.
+
+&emsp; If you have more questions about Cubtera, feel free to join our community on [Slack](https://cubtera.slack.com).
