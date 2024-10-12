@@ -9,7 +9,6 @@ export default defineConfig({
     //     locales: ["ru", "en", "ua"],
     // },
     integrations: [ starlight({
-        // site: 'https://cubtera.com',
         title: 'Cubtera',
 		tagline: 'The best way to build your next cloud project',
         lastUpdated: true,
@@ -27,7 +26,6 @@ export default defineConfig({
             slack: 'https://cubtera.slack.com',
         },
         components: {
-            // Override the default `SocialIcons` component.
 
             // Footer with copyright
             Footer : './src/components/Footer.astro',
@@ -38,20 +36,20 @@ export default defineConfig({
 
         // Translation settings
         // defaultLocale: 'root',
-		locales: {
-			root: {
-				label: 'EN 🇺🇸',
-                lang: 'en',
-			},
-            ru: {
-                label: 'RU 🏳️',
-                lang: 'ru',
-            },
-            ua: {
-                label: 'UA 🇺🇦',
-                lang: 'ua',
-            },
-		},
+		// locales: {
+		// 	root: {
+		// 		label: 'EN 🇺🇸',
+        //         lang: 'en',
+		// 	},
+        //     ru: {
+        //         label: 'RU 🏳️',
+        //         lang: 'ru',
+        //     },
+        //     ua: {
+        //         label: 'UA 🇺🇦',
+        //         lang: 'ua',
+        //     },
+		// },
 
         // logo: {
         // 	src: './src/assets/logo.jpeg', // Relative path to your logo
@@ -60,6 +58,7 @@ export default defineConfig({
         //  replacesTitle: true,
         //  alt: "Cubtera Logo"
         // },
+
         sidebar: [
             {
                 label: '👋 Introduction',
@@ -80,12 +79,12 @@ export default defineConfig({
             },
 			{
                 label: '💻 Cubtera CLI',
-				collapsed: false,
+				collapsed: true,
 				items: [
-					'cubtera/config',
+					// 'cubtera/config',
 					{ 
 						label: 'Dimensions',
-						autogenerate: { directory: '/cubtera/dimensions', collapsed: true } 
+						autogenerate: { directory: '/cubtera/dimensions', collapsed: false }
 					},
 					{ 
 						label: 'Runners', 
@@ -98,15 +97,11 @@ export default defineConfig({
 				],
 			},
             {
-                label: 'Guides',
-                items: [
-                    // Each item here is one entry in the navigation menu.
-                    { label: 'Example Guide', link: '/guides/example/' },
-                    { label: 'Another Guide', link: '/guides/test/' },
-                ],
+                label: '📖 Guides',
+                autogenerate: { directory: '/guides', collapsed: true },
             },
             {
-                label: 'Reference',
+                label: '👉 Reference',
                 autogenerate: { directory: 'reference' },
             },
         ],

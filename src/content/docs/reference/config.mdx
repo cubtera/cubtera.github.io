@@ -1,11 +1,11 @@
 ---
 title: Cubtera configuration
-description: A reference page in my new Starlight docs site.
+description: Cubtera configuration file reference page for Cubtrera
 sidebar:
   # Set a custom label for the link
-  label: Config
+  label: Configuration
   # Set a custom order for the link (lower numbers are displayed higher up)
-  order: 2
+  order: 1
   # Add a badge to the link
   badge:
     text: New
@@ -16,6 +16,76 @@ sidebar:
 ## Configuration file
 
 &emsp; Cubtera configuration file is a `config.toml` file, which should be placed by default path `~/.cubtera/config.toml`. This file contains all cubtera configuration parameters, which could be used to configure cubtera behavior. If you want to use custom configuration file, you can set it with environment variable `CUBTERA_CONFIG`.
+
+Configuration parameters priority is as follows:
+1. Values from `env` variables
+2. Values from `org` lvl configuration
+3. Values from `default` lvl configuration
+
+### Example of `config.toml` file
+
+```toml title="config.toml"
+[ default ] # all parameters are optional, default values are shown
+workspace_path = "example" # default => "~/.cubtera"
+temp_folder_path = "example/.cubtera/tmp" # default => "~/.cubtera/tmp"
+
+units_folder = "units" # default => "units"
+modules_folder = "modules" # default => "modules"
+inventory_folder = "inventory" # default => "inventory"
+
+units_path = "example/units" # $workspace_path/$units_folder | override units_folder
+modules_path = "example/modules" # $workspace_path/$modules_folder | override modules_folder
+inventory_path = "example/inventory" # $workspace_path/$inventory_folder | override inventory_folder
+
+dim_relations = "dome:env:dc" # default => "dome:env:dc" | Relations of base dimension's types (colon separated)
+orgs = "cubtera:teracub" # default => "cubtera" | List of orgs (tenants) in inventory to work with (colon separated)
+
+# Usefully for development and CI/CD
+always_copy_files = true # default => "false" | Copy files to the runner's temp folder
+clean_cache = false # default => "false" | Clean runner's temp folder after successful run
+
+[ cubtera ] # optional, custom configuration for the org, overrides default parameters with the same key
+# usefully for multiple orgs management in the same inventory
+
+[cubtera.state.s3] # optional, global org configuration for the state backend of S3 type
+bucket = "{{ org }}-example-state"
+key    = "{{ dim_tree }}/{{ unit_name }}.tfstate"
+region = "us-east-1"
+
+[cubtera.state.local] # optional, global org configuration for the state backend of local type
+path = "~/.cubtera/state/{{ org }}/{{ dim_tree }}/{{ unit_name }}.tfstate" # default
+
+[cubtera.runner.tf] # optional, custom configuration for the runner of Terraform type
+state_backend = "s3" # default => "local"
+
+[cubtera.runner.tofu] # optional, custom configuration for the runner of Terraform type
+state_backend = "s3"
+
+inlet_command = "echo Inlet command" # default => None, will run command before runner starts, in temp folder context
+outlet_command = "echo Outlet command" # default => None, will run command after runner finishes successfully, in temp folder context
+
+version = "1.7.0" # default => latest, will be ignored if runner_command is set, will be latest if both was not defined
+
+# runner_command = "terraform" # default => None, if None -> will proceed with internal runner logic
+# extra_params = "-json" # default => None, will add extra params to the runner_command
+
+[cubtera.runner.bash]
+runner_command = "./runner.sh"
+
+## Org specific parameters, override defaults
+[ teracub ] # optional, custom configuration for the org, overrides default parameters with the same key
+
+dim_relations = "universe:environment:dc"
+
+[teracub.state.s3] # optional, global org configuration for the state backend of S3 type
+bucket = "{{ org }}-tfstates"
+key    = "{{ dim_tree }}/{{ unit_name }}.tfstate"
+region = "us-west-2"
+
+[teracub.runner.tf] # optional, custom configuration for the runner of Terraform type
+state_backend = "s3" # default => "local"
+
+```
 
 ### Inventory parameters
 - `workspace_path` - path to your workspace, where all your terraform states will be stored, default is `~/.cubtera/workspace`
@@ -48,18 +118,24 @@ Cubtera currently supports only one relations line, so you can't use many relati
 
 &emsp; more about dimension's `json` definition you can read [here]()
 
-### Development parameters:
+### Development parameters
 - `clean_cache` - cleaning cash after successful apply toggle, default is `false`.
 - `always_copy_files` - unit files copying to cache folder for every command, default is `false`. If enabled, all unit files will be copied to cache folder before every command, if disabled, files will be copied only for `init` command.
 
-### Deployment log parameters:
+### Deployment log parameters
 - `dlog_db` - configures mongo database connection string, if not set, deployment log will be disabled
 - `dlog_job_user_name_env` - configures environment variable name, which will be used to store job user name, if not set, will be used local host user name
 - `dlog_job_number_env` - configures environment variable name, which will be used to store job number, if not set, will be set to `0`
 - `dlog_job_name_env` - configures environment variable name, which will be used to store job name, if not set, will be set to `local`
 
-## Environment variables
+## Overrides with env variables
 
-Cubtera could be configured with environment variables, which will override configuration file parameters. All environment variables should be started with `CUBTERA_` prefix, and should be in upper case. For example, if you want to override `workspace_path` parameter, you should set environment variable `CUBTERA_WORKSPACE_PATH`.
+&emsp; Cubtera can be configured using environment variables, which override configuration file parameters. All environment variables should:
+- Start with the `CUBTERA_` prefix
+- Be in uppercase
 
-Only one environment variable is required to start using cubtera - `CUBTERA_ORG`, which should contain name of your organization, and will be used to find your organization related units and dimensions in inventory, as well as for cubtera parameters could be different for every organization and could be set in configuration file.
+&emsp; For example, to override the `workspace_path` parameter, set the environment variable `CUBTERA_WORKSPACE_PATH`.
+
+&emsp; Additional configuration options:
+- To use a custom configuration file, set the `CUBTERA_CONFIG` environment variable.
+- In a `multi-organization` setup, switch organizations by setting the `CUBTERA_ORG` environment variable. This will be used to find your organization-related config parameters, units, and dimensions in the inventory.

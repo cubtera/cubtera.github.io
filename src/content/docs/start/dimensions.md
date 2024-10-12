@@ -1,7 +1,0 @@
----
-title: Dimensions
-description: Dimensions documentation page for Cubtrera
-sidebar:
-    label: Dimensions
-    order: 3
----

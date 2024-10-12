@@ -29,7 +29,7 @@ hero:
     - text: Read code in github
       link: https://github.com/cubtera/cubtera
       icon: external
-      variant: secondary
+      variant: secondary #minimal, primary, secondary, tertiary
 ---
 
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
@@ -38,23 +38,21 @@ import TimelineComponent from "/src/components/TimelineComponent.astro";
 {/* <TimelineComponent /> */}
 
 <CardGrid stagger>
-	<Card title="About Cubtera" icon="pencil" href="/about">
-		 <LinkCard title="Breif info" href="/about" />
-		 <LinkCard title="How it works" href="/how" />
+	<Card title="Flexibility" icon="puzzle" href="/about">
+		 Being **flexible** as possible, leading to a unique user experience with the power to change every aspect of the infrastructure management.
 	</Card>
-	<Card title="Getting Started" icon="add-document">
-		<LinkCard title="Installation" href="/start/install" />
-		<LinkCard title="Quick start" href="/start/quick" />
+	<Card title="Devops Oriented" icon="add-document">
+		Conceived for decreasing complexity coming from IaC solutions nature and improving effectiveness in scale.
 	</Card>
-	<Card title="Cubtera CLI" icon="setting">
-		<LinkCard title="Components" href="/reference/docs" />
+	<Card title="Performance" icon="rocket">
+		Optimized multi-dimensional approach for keep you code DRY. Configured to write code once. No useless copy/pastes consuming your time while refactoring.
 	</Card>
 	<Card title="Reference" icon="open-book">
-		<LinkCard title="Documenting" href="/reference/docs" />
+        Designed to be a reference for your infrastructure, with a clear and easy to understand structure, current state and changes history.
 	</Card>
 </CardGrid>
 
-<CardGrid>
-	<LinkCard title="Authoring Markdown" href="/guides/authoring-content/" />
-	<LinkCard title="Components" href="/components/using-components/" />
-</CardGrid>
+{/* <CardGrid> */}
+{/* 	<LinkCard title="Authoring Markdown" href="/guides/authoring-content/" /> */}
+{/* 	<LinkCard title="Components" href="/components/using-components/" /> */}
+{/* </CardGrid> */}

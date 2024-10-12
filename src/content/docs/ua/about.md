@@ -1,6 +1,6 @@
 ---
 title: O Cubtera
-description: Main documentation page for Cubtrera
+description: Main documentation page for Cubtera
 sidebar:
   label: Про Cubtera
 ---

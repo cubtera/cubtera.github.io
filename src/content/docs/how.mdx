@@ -4,13 +4,38 @@ description: High-level overview of Cubtera principles.
 tableOfContents: true
 ---
 
+&emsp; Cubtera is a tool for managing IaC units with different dimensions from single inventory. It allows you to separate your infrastructure by different dimensions, and manage it with single inventory without code duplication (DRY).
 
-#### Applications
+&emsp; Each unit is a separate bunch of code for chosen type of runner, such as terraform or bash script, which could be applied with defined set of dimensions.
+Dedicated dimension is a set of values, which could be used for infrastructure separation by different environments, regions, accounts, etc.
 
-| Keybind | Description | Test
-| ------- | ----------- | ----
-| **Super + C** | Open VSCodium (editor) | test test test |
-| **Super + Enter** | Open the Terminal | |
-| **Super + T** | Open Foot (terminal) | |
-| **Super + E** | Open the File Manager | |
-| **Super + W** | Open the Browser | |
+&emsp; For example, you have a unit `aws_network_vpc` which is creating vpc network for your infrastructure, and you want to use it for different environments, like staging and production. You can create dimension, `dc` (data center), and inside this dimension folder create two files `staging.json` and `production.json` with the same set of variables, but with different values.
+
+```json title="production.json"
+{
+  "account_id": "123456789012",
+  "cidr_block": "10.0.0.0/16",
+  "availability_zones": ["us-east-1a", "us-east-1b", "us-east-1c"]
+}
+```
+&emsp;
+
+```json title="staging.json"
+{
+  "account_id": "9834895838923",
+  "cidr_block": "10.100.0.0/16",
+  "availability_zones": ["us-east-1a", "us-east-1b"]
+}
+```
+&emsp;And use this dimension to create vpc network for your staging and production environments, with the same terraform unit, but with different values for variables.
+
+```bash
+cubtera run -d dc:production -u aws_network_vpc -- init
+cubtera run -d dc:production -u aws_network_vpc -- plan
+cubtera run -d dc:production -u aws_network_vpc -- apply
+```
+&emsp; Your vpc network will be created in production environment with values from `production.json` file. Defined values will be provided to terraform unit as variables:
+- `var.dim_dc_meta` - object from `production.json` file
+- `var.dim_dc_name` - string `production`
+
+&emsp; Cubtera takes responsibility for providing these variables to your terraform unit, and you can use them in your terraform code as any other variables.
