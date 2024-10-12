@@ -1,6 +1,6 @@
 ---
 title: Dimensions
-description: Dimensions documentation page for Cubtrera
+description: Опис dimensions в Cubtera
 sidebar:
     label: Dimensions
     order: 3

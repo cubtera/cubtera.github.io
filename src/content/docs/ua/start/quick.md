@@ -1,6 +1,6 @@
 ---
-title: Quick start
-description: A reference page in my new Starlight docs site.
+title: Швидкий старт
+description: Швидкий старт з Cubtera
 sidebar:
     # Set a custom label for the link
     # label: Install Cubtera
@@ -8,3 +8,5 @@ sidebar:
     order: 2
     # Add a badge to the link
 ---
+
+## Швидкий старт

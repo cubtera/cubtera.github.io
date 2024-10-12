@@ -1,0 +1,33 @@
+---
+title: Configuration
+description: Cubtera configuration documentation page
+order: 1
+banner:
+    content: |
+        We just launched something cool!
+        <a href="https://example.com">Check it out</a>
+badge:
+    text: new
+    variant: caution #note, tip, danger, caution or success
+---
+
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+:::card
+title: About Cubtera
+icon: pencil
+href: /about
+:::
+:::card
+title: Getting Started
+icon: add-document
+:::
+:::link-card
+title: Installation
+href: /start/install
+:::
+:::link-card
+title: Quick start
+href: /start/quick
+:::

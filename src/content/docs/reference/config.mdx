@@ -1,0 +1,65 @@
+---
+title: Cubtera configuration
+description: A reference page in my new Starlight docs site.
+sidebar:
+  # Set a custom label for the link
+  label: Config
+  # Set a custom order for the link (lower numbers are displayed higher up)
+  order: 2
+  # Add a badge to the link
+  badge:
+    text: New
+    variant: tip #note, tip, danger, caution or success
+---
+
+
+## Configuration file
+
+&emsp; Cubtera configuration file is a `config.toml` file, which should be placed by default path `~/.cubtera/config.toml`. This file contains all cubtera configuration parameters, which could be used to configure cubtera behavior. If you want to use custom configuration file, you can set it with environment variable `CUBTERA_CONFIG`.
+
+### Inventory parameters
+- `workspace_path` - path to your workspace, where all your terraform states will be stored, default is `~/.cubtera/workspace`
+- `module_path` - path to your modules, where all your terraform modules will be stored, default is `~/.cubtera/workspace/modules`. This modules folder will be symlinked to every terraform unit folder, so you can use modules in your units without any additional configuration, just install them in this folder, and they will be available in every unit by path `./modules`
+- `plugin_path` - path to your plugins, where all your terraform plugins will be stored, default is `~/.cubtera/workspace/plugins`. This plugins folder will be symlinked to every terraform unit folder, so you can use plugins in your units without any additional configuration, just install them in this folder, and they will be available in every unit by path `./plugins`
+- `inventory_path` - path to your inventory, where all your terraform inventory will be stored, default is `~/.cubtera/workspace/inventory`. This should contain all your terraform units, which will be used in your infrastructure. Every unit should be placed in separate folder, and should contain `main.tf` file with terraform code, and `unit_manifest.json` file with unit configuration.
+- `temp_folder_path` - path to your temp files, where all your terraform temp files will be stored, default is `~/.cubtera/temp`
+
+&emsp; Path could be set as absolute or relative to your current working directory, if you want to use relative path, you should start it with `./`.
+
+### Dimension's relations parameters
+
+- `dim_relations` - configure relations between base dimensions, default is `dome:env:dc`. String, with every `dim_type`s separated by `:`. Elders first. For example, `[dome:env:dc]` means that `dome`dimension is a parent of `env`, as well as `env` is a parent of `dc`.
+
+&emsp; This relation's definition will be used to provide a right variables set for a unit, depending on a used dimension. If unit uses `dc` dimension as a main, it will get all variables from `dc` dimension, and all variables from parent dimension of `env` type, and all variables from parent dimension of `dome` type.
+
+:::note
+Cubtera currently supports only one relations line, so you can't use many relations, e.g. `dome:env:dc` and `entity:service:app` simultaneously in one config.
+:::
+
+&emsp; Dimension parent should be also defined in `dc` dimension .json file, for example, if you want to use `env` dimension as a parent for `dc` dimension, you should define which exactly `env` dimension is parent:
+```json
+// inventory/dc/staging1-us-e2.json | dc:staging1-us-e2 dimension
+{
+   ...
+   "parent": "env:staging1",
+   ...
+}
+```
+
+&emsp; more about dimension's `json` definition you can read [here]()
+
+### Development parameters:
+- `clean_cache` - cleaning cash after successful apply toggle, default is `false`.
+- `always_copy_files` - unit files copying to cache folder for every command, default is `false`. If enabled, all unit files will be copied to cache folder before every command, if disabled, files will be copied only for `init` command.
+
+### Deployment log parameters:
+- `dlog_db` - configures mongo database connection string, if not set, deployment log will be disabled
+- `dlog_job_user_name_env` - configures environment variable name, which will be used to store job user name, if not set, will be used local host user name
+- `dlog_job_number_env` - configures environment variable name, which will be used to store job number, if not set, will be set to `0`
+- `dlog_job_name_env` - configures environment variable name, which will be used to store job name, if not set, will be set to `local`
+
+## Environment variables
+
+Cubtera could be configured with environment variables, which will override configuration file parameters. All environment variables should be started with `CUBTERA_` prefix, and should be in upper case. For example, if you want to override `workspace_path` parameter, you should set environment variable `CUBTERA_WORKSPACE_PATH`.
+
+Only one environment variable is required to start using cubtera - `CUBTERA_ORG`, which should contain name of your organization, and will be used to find your organization related units and dimensions in inventory, as well as for cubtera parameters could be different for every organization and could be set in configuration file.

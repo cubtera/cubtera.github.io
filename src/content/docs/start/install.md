@@ -1,6 +1,6 @@
 ---
 title: Install Cubtera
-description: A reference page in my new Starlight docs site.
+description: Installation documentation page for Cubtrera
 sidebar:
   # Set a custom label for the link
   label: Install Cubtera
@@ -12,7 +12,7 @@ sidebar:
     # variant: caution #note, tip, danger, caution or success
 ---
 
-&emsp; Cubtera currently supports MacOS and Linux. Be sure `brew` is installed on your machine before proceeding. For Cubtera installation, run the following commands in your terminal:
+&emsp; Cubtera currently supports MacOS and Linux. Be sure [brew](https://brew.sh/) is installed on your machine before proceeding. For Cubtera installation, run the following commands in your terminal:
 
 ```bash
 brew tap cubtera/cubtera
@@ -20,4 +20,8 @@ brew install cubtera
 cubtera --version
 ```
 
-&emsp; If you prefer binary, download the latest release from the [Cubtera GitHub page](https://github.com/cubtera/cubtera/releases).
+&emsp; If you prefer direct binary installation, download the [latest release](https://github.com/cubtera/cubtera/releases) from Github.
+
+:::caution
+Direct installation on MacOS will require Security & Privacy settings to be changed. To allow the installation, go to `System Preferences > Security & Privacy > General` and click `Allow Anyway` for Cubtera.
+:::
