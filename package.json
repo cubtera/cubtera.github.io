@@ -10,10 +10,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/markdoc": "^0.11.5",
-    "@astrojs/starlight": "0.28.3",
-    "@astrojs/starlight-markdoc": "^0.1.0",
-    "astro": "^4.16.2",
+    "@astrojs/markdoc": "^0.12.4",
+    "@astrojs/mdx": "^4.0.3",
+    "@astrojs/starlight": "0.30.3",
+    "@astrojs/starlight-markdoc": "^0.2.0",
+    "astro": "^5.1.1",
     "sharp": "^0.33.5"
   },
   "devDependencies": {

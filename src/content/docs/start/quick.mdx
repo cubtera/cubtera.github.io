@@ -1,5 +1,5 @@
 ---
-title: Quick start 
+title: Quick start
 description: Quick start guide for Cubtera
 sidebar:
     # Set a custom label for the link
@@ -97,7 +97,7 @@ Dedicated dimension is a set of values, which could be used for infrastructure s
 &emsp; For example, you have a unit `aws_network_vpc` which is creating vpc network for your infrastructure, and you want to use it for different environments, like staging and production. You can create dimension, `dc` (data center), and inside this dimension folder create two files `staging.json` and `production.json` with the same set of variables, but with different values.
 
 ```json title="production.json"
-{ 
+{
   "account_id": "123456789012",
   "cidr_block": "10.0.0.0/16",
   "availability_zones": ["us-east-1a", "us-east-1b", "us-east-1c"]
@@ -106,7 +106,7 @@ Dedicated dimension is a set of values, which could be used for infrastructure s
 &emsp;
 
 ```json title="staging.json"
-{ 
+{
   "account_id": "9834895838923",
   "cidr_block": "10.100.0.0/16",
   "availability_zones": ["us-east-1a", "us-east-1b"]
@@ -601,4 +601,4 @@ fn exit_with_error(message: String) -> ! {
 }
 ```
 
-For further details and contributions, refer to the [Cubtera Repository](#).
+For further details and contributions, refer to the [Cubtera Repository](https://github.com/cubtera/cubtera).
